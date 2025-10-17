@@ -10,15 +10,18 @@ class UserController {
     );
     res.json(newPerson.rows[0]);
   }
+
   async getUsers(req: Request, res: Response) {
     const allPersons = await pool.query("SELECT * FROM person");
     res.json(allPersons.rows);
   }
+
   async getOneUser(req: Request, res: Response) {
     const id = req.params.id;
     const person = await pool.query("SELECT * FROM person where id = $1", [id]);
     res.json(person.rows[0]);
   }
+
   async updateUser(req: Request, res: Response) {
     const { id, name, surname } = req.body;
     const updatedPerson = await pool.query(
@@ -27,6 +30,7 @@ class UserController {
     );
     res.json(updatedPerson.rows[0]);
   }
+
   async deleteUser(req: Request, res: Response) {
     const id = req.params.id;
     const person = await pool.query("DELETE FROM person where id = $1", [id]);
